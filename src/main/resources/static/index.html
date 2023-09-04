@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+    <script>
+        // http://localhost:9090/index.html
+        // http://localhost:9090/hello.json
+        function  hello() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('Get', '/hello.json', true); // hello버튼을 누르면 자바스크립트의 이벤트 발생으로 hello()함수 호출 -> 백그라운드로 /hello.json이 호출된다.
+            xhr.onload = function () {
+                console.log(this);
+                // document.getElementById('app').innerHTML = this.responseText;
+
+                var jsonObj = JSON.parse(this.responseText); // 이 부분은 자바 스크립트가 해주는 것이다.
+                console.log(jsonObj.count);
+                var str = "";
+                for(var i = 0; i < jsonObj.count; i++){
+                    str += i + "<br>"
+                }
+                document.getElementById('app').innerHTML = str;
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+<h1>Hello</h1>
+<img src="cute.png">
+<div id="app"></div>
+<button onclick="hello()">Hello</button>
+</body>
+</html>
